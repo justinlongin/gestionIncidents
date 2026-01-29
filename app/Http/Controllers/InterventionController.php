@@ -40,7 +40,7 @@ class InterventionController extends Controller
 
         return Inertia::render('Intervention/view', [
             'interventions' => $interventions,
-            'user' => Auth::user()
+            'user' => Auth::user()->load('role')
         ]);
     }
 
@@ -49,7 +49,7 @@ class InterventionController extends Controller
         return Inertia::render('Intervention/show', [
             'intervention' => $incident->load(['categorie','priorite']),
 
-            'user' => Auth::user()
+            'user' => Auth::user()->load('role')
         ]);
     }
 
@@ -76,7 +76,7 @@ class InterventionController extends Controller
         return Inertia::render('Intervention/cloture', [
             'intervention' => $incident->load(['categorie','priorite']),
 
-            'user' => Auth::user()
+            'user' => Auth::user()->load('role')
         ]);
     }
 

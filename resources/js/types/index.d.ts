@@ -34,6 +34,8 @@ export interface User {
     created_at: string;
     updated_at: string;
     agence_id: number;
+    agence:Agence
+    service:Service
     service_id: number;
     region: string;
     role: Role;
@@ -88,4 +90,12 @@ export interface Categories {
     categories: Categorie[]
 }
 
+export interface Agence{
+    id: number,
+    nom:string
+}
+export interface Service{
+    id: number,
+    nom:string
+}
 

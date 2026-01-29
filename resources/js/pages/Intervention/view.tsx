@@ -80,7 +80,7 @@ export default function View({ interventions, user }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav user={user}/>
+                <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">

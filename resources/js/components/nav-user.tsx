@@ -27,6 +27,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { User } from "@/types"
+import { Link, useForm } from "@inertiajs/react"
+import { LogOut } from "lucide-react"
+import { Button } from "./ui/button"
 
 export function NavUser({
   user,
@@ -34,6 +37,13 @@ export function NavUser({
   user: User
 }) {
   const { isMobile } = useSidebar()
+
+  const { post, processing } = useForm()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    post('/logout')
+}
 
   return (
     <SidebarMenu>
@@ -81,7 +91,7 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUserCircle />
-                Account
+                <Link href="/user/profil/edit">Account</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />
@@ -94,8 +104,26 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <IconLogout />
-              Log out
+              <form onSubmit={handleSubmit}>
+                                        <Button 
+                                             className="cursor-pointer"
+                                            type="submit"
+                                            disabled={processing}
+                                            variant="outline"
+                                        >
+                                            {processing ? (
+                                                <>
+                                                    <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 dark:border-red-400 mr-2"></span>
+                                                    Déconnexion...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <LogOut className="w-4 h-4 mr-2" />
+                                                    Déconnexion
+                                                </>
+                                            )}
+                                        </Button>
+                              </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

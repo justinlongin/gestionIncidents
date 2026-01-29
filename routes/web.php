@@ -51,3 +51,9 @@ Route::prefix('/users')->controller(AdminUserController::class)->middleware('aut
     Route::get('/register','register')->name('register');
     Route::post('/register','signUp')->name('signup');
 });
+
+Route::get('/user/profil', [UserController::class, 'profil'])->middleware('auth')->name('user.profil');
+Route::get('/user/profil/edit', [UserController::class, 'edit'])->middleware('auth')->name('user.edit');
+Route::get('/user/profil/edit/password', [UserController::class, 'editPassword'])->middleware('auth')->name('user.editPassword');
+Route::put('/user/profil/edit/password', [UserController::class, 'updatePassword'])->middleware('auth');
+Route::put('/user/profil/edit', [UserController::class, 'update'])->middleware('auth');

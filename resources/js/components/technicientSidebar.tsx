@@ -41,22 +41,22 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/admin",
       icon: IconDashboard,
     },
     {
       title: "Utilisateurs",
-      url: "#",
+      url: "/admin/utilisateur",
       icon:  IconUsers,
     },
     {
       title: "Incidents",
-      url: "#",
+      url: "/admin/incidents",
       icon: IconFolder,
     },
     {
       title: "Statistique",
-      url: "#",
+      url: "/admin/statistique",
       icon: IconChartBar,
     },
     {
@@ -172,9 +172,9 @@ export function TechnicienSidebar({user}: Props) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        {/* <NavMain items={data.navMain} /> */}
-        <NavDocuments items={data.documents} />
-        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+        <NavMain items={data.navMain} />
+        {/* <NavDocuments items={data.documents} /> */}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

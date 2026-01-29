@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\User;
 use Inertia\Inertia;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\registerRequest;
-use Illuminate\Support\Str;
 
 class AdminUserController extends Controller
 {
@@ -35,6 +38,14 @@ class AdminUserController extends Controller
         if($data['region'] == null){
             $data['region'] = $user->region;
         }
-        dd($data);
+        // Extraire le nom de l'email si le champ name n'est pas fourni
+        if(empty($data['name']) && !empty($data['email'])){
+            $data['name'] = explode('@', $data['email'])[0];
+        }
+
+        $utilissateur = User::create($data);
+        Mail::to($utilissateur->email)->send(new WelcomeMail($utilissateur, $generatePassword));
+
+        return redirect()->route('admin.utilisateur')->with('success', 'Utilisateur créé et email envoyé.');
     }
 }

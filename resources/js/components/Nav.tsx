@@ -53,29 +53,15 @@ export default function Nav({user}: Props) {
 
                         {/* Navigation desktop */}
                         <div className="hidden md:flex items-center space-x-6">
-                            <Link 
-                                href='/incident' 
-                                className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                            >
-                                <Home className="w-4 h-4" />
-                                Tableau de bord
-                            </Link>
                             
                             <Link 
-                                href='/profile' 
+                                href='/user/profil' 
                                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                             >
                                 <Userlucide className="w-4 h-4" />
                                 Profil
                             </Link>
                             
-                            <Link 
-                                href='/settings' 
-                                className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                            >
-                                <Settings className="w-4 h-4" />
-                                Paramètres
-                            </Link>
 
                             <div className="relative">
                                 <Button 
@@ -137,18 +123,9 @@ export default function Nav({user}: Props) {
                 {isMenuOpen && (
                     <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 animate-in slide-in-from-top duration-200">
                         <div className="container mx-auto px-4 py-3">
-                            <div className="space-y-3">
+                            <div className="space-y-3">                                
                                 <Link 
-                                    href='/incident' 
-                                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Home className="w-4 h-4" />
-                                    Tableau de bord
-                                </Link>
-                                
-                                <Link 
-                                    href='/profile' 
+                                    href='/user/profil' 
                                     className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
@@ -156,14 +133,6 @@ export default function Nav({user}: Props) {
                                     Profil
                                 </Link>
                                 
-                                <Link 
-                                    href='/settings' 
-                                    className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    <Settings className="w-4 h-4" />
-                                    Paramètres
-                                </Link>
 
                                 <Link 
                                     href='/notifications' 
@@ -215,7 +184,7 @@ export default function Nav({user}: Props) {
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600 dark:text-gray-400">
 
-                                {user.role.nom == 'technicien' ? <p>Technicien <span className="font-medium">{user.name}</span> connecté</p> : <p>Employé <span className="font-medium">{user.name}</span> connecté</p>}
+                            {user.role.nom == 'technicien' ? <p>Technicien <span className="font-medium">{user.name}</span> connecté</p> : <p>Employé <span className="font-medium">{user.name}</span> connecté</p>}
 
                                 
                             </span>
