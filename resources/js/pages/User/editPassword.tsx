@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { 
-  AlertTriangle, User, Mail, Phone, MapPin, Building, Globe,
-  Camera, Save, X, Bell, Lock, Shield, Eye, EyeOff, ChevronLeft
+  AlertTriangle, User, Bell, Lock, Shield, Eye, EyeOff, ChevronLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Select } from '@/components/ui/select';
 import { Link, useForm } from '@inertiajs/react';
 
 export default function EditProfilePassword() {
   const [activeTab, setActiveTab] = useState('security');
   const [showPassword, setShowPassword] = useState(false);
 
-  const {data, setData, post, processing, reset, errors} = useForm({
+  const {data, setData, post, processing, errors} = useForm({
     'current_password' : '',
     'password': '',
     'password_confirmation': '',
@@ -35,7 +32,12 @@ export default function EditProfilePassword() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon">
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => window.history.back()}
+              >
                 <ChevronLeft className="h-5 w-5" />
               </Button>
               <div className="flex items-center space-x-3">
@@ -43,16 +45,7 @@ export default function EditProfilePassword() {
                 <h1 className="text-xl font-bold text-gray-900">Édition du Profil</h1>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <Button variant="outline">
-                <X className="h-4 w-4 mr-2" />
-                Annuler
-              </Button>
-              <Button>
-                <Save className="h-4 w-4 mr-2" />
-                Enregistrer
-              </Button>
-            </div>
+
           </div>
         </div>
       </header>
@@ -64,6 +57,7 @@ export default function EditProfilePassword() {
             <Card>
               <CardContent className="p-4">
                 <nav className="space-y-2">
+                <Link href="/user/profil/edit">
                   <button
                     onClick={() => setActiveTab('personal')}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
@@ -73,9 +67,9 @@ export default function EditProfilePassword() {
                     }`}
                   >
                     <User className="h-5 w-5" />
-                    <span className="font-medium"><Link href="/user/profil/edit">Informations</Link></span>
+                    <span className="font-medium">Informations</span>
                   </button>
-                  
+                  </Link>
                   <button
                     onClick={() => setActiveTab('security')}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
@@ -189,51 +183,7 @@ export default function EditProfilePassword() {
                   </CardContent>
                 </Card>
             </form>
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Authentification à Deux Facteurs</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg mb-4">
-                      <div className="flex items-center space-x-3">
-                        <Shield className="h-5 w-5 text-green-600" />
-                        <div>
-                          <p className="font-medium text-green-900">2FA Activée</p>
-                          <p className="text-sm text-green-700">Votre compte est sécurisé</p>
-                        </div>
-                      </div>
-                      <Badge className="bg-green-600">Actif</Badge>
-                    </div>
-                    <Button variant="outline">Configurer 2FA</Button>
-                  </CardContent>
-                </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Sessions Actives</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <p className="font-medium">Paris, France</p>
-                        <p className="text-sm text-gray-600">Chrome sur Windows • Session actuelle</p>
-                        <p className="text-xs text-gray-500 mt-1">Dernière activité: Il y a 2 minutes</p>
-                      </div>
-                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                        Actuel
-                      </Badge>
-                    </div>
-                    
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <p className="font-medium">Lyon, France</p>
-                        <p className="text-sm text-gray-600">Safari sur iPhone</p>
-                        <p className="text-xs text-gray-500 mt-1">Dernière activité: Il y a 3 heures</p>
-                      </div>
-                      <Button variant="outline" size="sm">Déconnecter</Button>
-                    </div>
-                  </CardContent>
-                </Card>
               </>
             )}
 

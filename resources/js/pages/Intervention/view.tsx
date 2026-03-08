@@ -1,4 +1,4 @@
-import Nav from '@/components/Nav';
+import { TechnicienLayout } from '@/components/TechnicienLayout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,11 +14,9 @@ import {
   Archive,
   Calendar,
   Folder,
-  XCircle
 } from 'lucide-react';
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Props {
     interventions: Incident[];
@@ -79,41 +77,41 @@ export default function View({ interventions, user }: Props) {
     ];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-                <Nav user={user}/>
-            
-            <div className="container mx-auto px-4 py-8">
-                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                            Mes Interventions
-                        </h1>
-                        <p className="text-gray-600 dark:text-gray-300">
-                            Suivez et gérez vos interventions en cours
-                        </p>
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-sm">
-                            <Filter className="w-4 h-4 text-gray-500" />
-                            <span className="text-sm text-gray-600 dark:text-gray-300">
-                                {interventions.length} interventions au total
-                            </span>
+        <TechnicienLayout user={user} titre="Mes Incidents">
+            <div className="px-4 pt-6 lg:px-6 pb-8">
+                <div className="mb-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                Mes Interventions
+                            </h1>
+                            <p className="text-slate-600 dark:text-slate-400 mt-2">
+                                Suivez et gérez vos interventions en cours
+                            </p>
                         </div>
                         
-                        <Button asChild variant="outline">
-                            <Link href="/incident">
-                                <Eye className="w-4 h-4 mr-2" />
-                                Voir tous les incidents
-                            </Link>
-                        </Button>
+                        <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 px-4 py-2 shadow-sm backdrop-blur">
+                                <Filter className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    {interventions.length} intervention{interventions.length !== 1 ? 's' : ''} au total
+                                </span>
+                            </div>
+                            
+                            <Button asChild variant="outline" size="sm" className="border-slate-300 dark:border-slate-700">
+                                <Link href="/incident" className="flex items-center gap-2">
+                                    <Eye className="w-4 h-4" />
+                                    Voir tous les incidents
+                                </Link>
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
                 {/* Filtres */}
                 <div className="mb-8">
-                    <Tabs value={activeFilter} onValueChange={setActiveFilter}>
-                        <TabsList className="grid grid-cols-3 md:w-auto">
+                    <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full">
+                        <TabsList className="grid grid-cols-3 md:w-auto bg-slate-100 dark:bg-slate-800 p-1">
                             {filters.map((filter) => {
                                 const Icon = filter.icon;
                                 const config = getStatusConfig(filter.value);
@@ -121,7 +119,7 @@ export default function View({ interventions, user }: Props) {
                                     <TabsTrigger 
                                         key={filter.value} 
                                         value={filter.value}
-                                        className="data-[state=active]:bg-blue-100 data-[state=active]:text-blue-700 dark:data-[state=active]:bg-blue-900/30 dark:data-[state=active]:text-blue-300"
+                                        className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-purple-500 data-[state=active]:text-white transition-all duration-200"
                                     >
                                         <Icon className={`w-4 h-4 mr-2 ${config.color}`} />
                                         {filter.label}
@@ -138,37 +136,39 @@ export default function View({ interventions, user }: Props) {
                 {/* Contenu */}
                 <div className="mb-6">
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
                             Interventions {activeFilter.toLowerCase()}
                         </h2>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                        <div className="text-sm font-medium text-slate-500 dark:text-slate-400">
                             {filterIncidents.length} résultat{filterIncidents.length !== 1 ? 's' : ''}
                         </div>
                     </div>
 
                     {filterIncidents.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-20 text-center">
-                            <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
-                                <Archive className="w-12 h-12 text-gray-400" />
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                                Aucune intervention {activeFilter.toLowerCase()}
-                            </h3>
-                            <p className="text-gray-600 dark:text-gray-400 max-w-md">
-                                {activeFilter === 'En cours' 
-                                    ? "Vous n'avez actuellement aucune intervention en cours. Revenez plus tard ou consultez les autres statuts."
-                                    : `Aucune intervention n'est actuellement ${activeFilter.toLowerCase()}.`
-                                }
-                            </p>
-                            {activeFilter !== 'En cours' && (
-                                <Button 
-                                    className="mt-4"
-                                    onClick={() => setActiveFilter('En cours')}
-                                >
-                                    Voir les interventions en cours
-                                </Button>
-                            )}
-                        </div>
+                        <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900/50 overflow-hidden">
+                            <CardContent className="flex flex-col items-center justify-center py-20 text-center">
+                                <div className="p-6 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 mb-4 ring-4 ring-white/50 dark:ring-slate-800/50">
+                                    <Archive className="w-12 h-12 text-slate-400 dark:text-slate-500" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                                    Aucune intervention {activeFilter.toLowerCase()}
+                                </h3>
+                                <p className="text-slate-600 dark:text-slate-400 max-w-md mb-6">
+                                    {activeFilter === 'En cours' 
+                                        ? "Vous n'avez actuellement aucune intervention en cours. Revenez plus tard ou consultez les autres statuts."
+                                        : `Aucune intervention n'est actuellement ${activeFilter.toLowerCase()}.`
+                                    }
+                                </p>
+                                {activeFilter !== 'En cours' && (
+                                    <Button 
+                                        className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 transition-all"
+                                        onClick={() => setActiveFilter('En cours')}
+                                    >
+                                        Voir les interventions en cours
+                                    </Button>
+                                )}
+                            </CardContent>
+                        </Card>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {filterIncidents.map((intervention) => {
@@ -178,27 +178,27 @@ export default function View({ interventions, user }: Props) {
                                 return (
                                     <Card 
                                         key={intervention.id} 
-                                        className="border-0 shadow-lg dark:border-gray-700 hover:shadow-xl transition-shadow duration-300"
+                                        className="group border-0 shadow-lg bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900/50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
                                     >
                                         <CardHeader className="pb-3">
                                             <div className="flex justify-between items-start mb-2">
-                                                <div className={`p-2 ${statusConfig.bgColor} rounded-lg`}>
+                                                <div className={`p-2 ${statusConfig.bgColor} rounded-lg transition-transform group-hover:scale-105`}>
                                                     <StatusIcon className={`w-5 h-5 ${statusConfig.color}`} />
                                                 </div>
-                                                <Badge className={getPriorityColor(intervention.priorite.nom)}>
+                                                <Badge className={`${getPriorityColor(intervention.priorite.nom)} shadow-sm`}>
                                                     {intervention.priorite.nom}
                                                 </Badge>
                                             </div>
-                                            <CardTitle className="text-lg capitalize line-clamp-2">
+                                            <CardTitle className="text-lg capitalize line-clamp-2 text-slate-900 dark:text-white">
                                                 {intervention.titre}
                                             </CardTitle>
-                                            <CardDescription className="line-clamp-3">
+                                            <CardDescription className="line-clamp-3 text-slate-600 dark:text-slate-400">
                                                 {intervention.description}
                                             </CardDescription>
                                         </CardHeader>
                                         
                                         <CardContent className="pb-3">
-                                            <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                                            <div className="flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
                                                 <div className="flex items-center gap-1">
                                                     <Folder className="w-4 h-4" />
                                                     <span>{intervention.categorie.nom}</span>
@@ -215,24 +215,24 @@ export default function View({ interventions, user }: Props) {
                                             </div>
                                         </CardContent>
                                         
-                                        <CardFooter className="pt-3 border-t dark:border-gray-700">
+                                        <CardFooter className="pt-3 border-t border-slate-200 dark:border-slate-700">
                                             {intervention.statut === 'En cours' ? (
-                                                <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                                                    <Link href={`/intervention/view/${intervention.id}`}>
-                                                        <CheckCircle className="w-4 h-4 mr-2" />
+                                                <Button asChild className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all">
+                                                    <Link href={`/intervention/view/${intervention.id}`} className="flex items-center justify-center gap-2">
+                                                        <CheckCircle className="w-4 h-4" />
                                                         Terminer l'intervention
                                                     </Link>
                                                 </Button>
                                             ) : (
                                                 <div className="w-full">
-                                                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${statusConfig.bgColor}`}>
+                                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${statusConfig.bgColor}`}>
                                                         <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
                                                         <span className={`text-sm font-medium ${statusConfig.color}`}>
                                                             {statusConfig.text}
                                                         </span>
                                                     </div>
                                                     {intervention.statut === 'Résolu' && (
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                                                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
                                                             En attente de clôture par l'utilisateur
                                                         </p>
                                                     )}
@@ -247,10 +247,10 @@ export default function View({ interventions, user }: Props) {
                 </div>
 
                 {/* Statistiques */}
-                <Card className="border-0 shadow-lg dark:border-gray-700 mt-8">
+                <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900/50 mt-8">
                     <CardHeader>
-                        <CardTitle>Statistiques des interventions</CardTitle>
-                        <CardDescription>Vue d'ensemble de votre activité</CardDescription>
+                        <CardTitle className="text-slate-900 dark:text-white">Statistiques des interventions</CardTitle>
+                        <CardDescription className="text-slate-600 dark:text-slate-400">Vue d'ensemble de votre activité</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -264,23 +264,31 @@ export default function View({ interventions, user }: Props) {
                                 return (
                                     <div 
                                         key={filter.value} 
-                                        className={`p-4 rounded-lg ${config.bgColor} border dark:border-gray-700`}
+                                        className={`p-4 rounded-lg ${config.bgColor} border border-slate-200/50 dark:border-slate-700 transition-transform hover:scale-[1.02]`}
                                     >
                                         <div className="flex items-center justify-between">
                                             <div>
-                                                <p className="text-sm text-gray-600 dark:text-gray-400">{filter.label}</p>
-                                                <p className="text-2xl font-bold mt-1">{filter.count}</p>
+                                                <p className="text-sm text-slate-600 dark:text-slate-400">{filter.label}</p>
+                                                <p className="text-2xl font-bold mt-1 text-slate-900 dark:text-white">{filter.count}</p>
                                             </div>
                                             <Icon className={`w-8 h-8 ${config.color}`} />
                                         </div>
                                         <div className="mt-3">
-                                            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                            <div 
+                                                className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden"
+                                                role="progressbar"
+                                                aria-valuenow={percentage}
+                                                aria-valuemin={0}
+                                                aria-valuemax={100}
+                                                aria-label={`${filter.label}: ${percentage}%`}
+                                                title={`${filter.label}: ${percentage}%`}
+                                            >
                                                 <div 
-                                                    className={`h-2 rounded-full ${config.color.replace('text-', 'bg-')}`}
+                                                    className={`h-2 rounded-full transition-all duration-500 ${config.color.replace('text-', 'bg-')}`}
                                                     style={{ width: `${percentage}%` }}
                                                 />
                                             </div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                                                 {percentage}% du total
                                             </p>
                                         </div>
@@ -291,6 +299,6 @@ export default function View({ interventions, user }: Props) {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </TechnicienLayout>
     );
 }

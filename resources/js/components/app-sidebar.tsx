@@ -8,16 +8,15 @@ import {
   IconFileDescription,
   IconFileWord,
   IconFolder,
-  IconHelp,
+
   IconInnerShadowTop,
-  IconListDetails,
+
   IconReport,
-  IconSearch,
+
   IconSettings,
   IconUsers,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -43,27 +42,27 @@ const data = {
       title: "Dashboard",
       url: "/admin",
       icon: IconDashboard,
+      active: false
     },
     {
       title: "Utilisateurs",
       url: "/admin/utilisateur",
       icon:  IconUsers,
+      active: false
     },
     {
       title: "Incidents",
       url: "/admin/incidents",
       icon: IconFolder,
+      active: false
     },
     {
       title: "Statistique",
       url: "/admin/statistique",
       icon: IconChartBar,
+      active: false
     },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconListDetails,
-    },
+
   ],
   navClouds: [
     {
@@ -116,19 +115,10 @@ const data = {
   navSecondary: [
     {
       title: "Settings",
-      url: "#",
+      url: "/user/profil/edit",
       icon: IconSettings,
     },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
+
   ],
   documents: [
     {
@@ -165,7 +155,7 @@ export function AppSidebar({user}: Props) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">IncidentPro.</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select } from '@/components/ui/select';
@@ -37,25 +38,18 @@ export default function EditProfilePage({user}:Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-            <Link href="/user/profil">
-              <Button variant="ghost" size="icon">
+            <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => window.history.back()}
+              >
                 <ChevronLeft className="h-5 w-5" />
-              </Button>
-              </Link>
+                </Button>
               <div className="flex items-center space-x-3">
                 <AlertTriangle className="h-6 w-6 text-blue-600" />
                 <h1 className="text-xl font-bold text-gray-900">Édition du Profil</h1>
               </div>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Button variant="outline">
-                <X className="h-4 w-4 mr-2" />
-                Annuler
-              </Button>
-              <Button>
-                <Save className="h-4 w-4 mr-2" />
-                Enregistrer
-              </Button>
             </div>
           </div>
         </div>
@@ -79,19 +73,19 @@ export default function EditProfilePage({user}:Props) {
                     <Userlucide className="h-5 w-5" />
                     <span className="font-medium">Informations</span>
                   </button>
-                  
+                  <Link href="/user/profil/edit/password">
                   <button
                     onClick={() => setActiveTab('security')}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors cursor-pointer ${
                       activeTab === 'security' 
                         ? 'bg-blue-50 text-blue-600' 
                         : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   >
                     <Lock className="h-5 w-5" />
-                    <span className="font-medium"><Link href="/user/profil/edit/password">Sécurité</Link></span>
+                     <span className="font-medium">Sécurité</span>
                   </button>
-                  
+                  </Link>
                   <button
                     onClick={() => setActiveTab('notifications')}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
@@ -137,7 +131,14 @@ export default function EditProfilePage({user}:Props) {
                           JD
                         </div>
                         <Button className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white shadow-lg transition-colors">
-                          <Camera className="h-4 w-4" />
+                          <form action="" method='post'> 
+                            <Label>
+                            <div>
+                            <Input type='file' className='hidden'/>
+                            <Camera className="h-4 w-4" />
+                            </div>
+                            </Label>
+                          </form>
                         </Button>
                       </div>
                       <div>
@@ -145,8 +146,7 @@ export default function EditProfilePage({user}:Props) {
                           JPG, GIF ou PNG. Taille maximale de 2MB
                         </p>
                         <div className="flex space-x-2">
-                          <Button size="sm">Télécharger une photo</Button>
-                          <Button size="sm" variant="outline">Supprimer</Button>
+                          <Button size="sm">Enregistrer</Button>
                         </div>
                       </div>
                     </div>

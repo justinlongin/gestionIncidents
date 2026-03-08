@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { Link } from "@inertiajs/react"
+import { useState } from "react"
 
 export function NavMain({
   items,
@@ -17,8 +18,16 @@ export function NavMain({
     title: string
     url: string
     icon?: Icon
+    active: boolean
   }[]
 }) {
+
+  const [isActive, setIsActive] = useState<boolean>(false)
+
+  const onToogle = () => {
+    setIsActive(!isActive)
+  }
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -43,12 +52,18 @@ export function NavMain({
         </SidebarMenu>
         <SidebarMenu>
           {items.map((item) => (
-            <Link href={item.url}><SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem></Link>
+            <Link href={item.url} key={item.title}>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  isActive={item.active}
+                  className={item.active ? "!text-red-500 hover:!text-red-600 data-[active=true]:!bg-red-50 data-[active=true]:!text-red-600" : ""}
+                >
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </Link>
           ))}
         </SidebarMenu>
       </SidebarGroupContent>

@@ -1,23 +1,11 @@
 import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
   IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
   IconFolder,
-  IconHelp,
   IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
   IconSettings,
-  IconUsers,
 } from "@tabler/icons-react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -30,6 +18,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Link } from "@inertiajs/react"
 import { User } from "@/types"
 
 const data = {
@@ -41,111 +30,25 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/admin",
+      url: "/user/profil",
       icon: IconDashboard,
+      active: true,
     },
     {
-      title: "Utilisateurs",
-      url: "/admin/utilisateur",
-      icon:  IconUsers,
-    },
-    {
-      title: "Incidents",
-      url: "/admin/incidents",
+      title: "Mes Incidents",
+      url: "/intervention/view",
       icon: IconFolder,
+      active: false,
     },
-    {
-      title: "Statistique",
-      url: "/admin/statistique",
-      icon: IconChartBar,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconListDetails,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
+
   ],
   navSecondary: [
     {
       title: "Settings",
-      url: "#",
+      url: "/user/profil/edit",
       icon: IconSettings,
     },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
+
   ],
 }
 
@@ -163,10 +66,10 @@ export function TechnicienSidebar({user}: Props) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <Link href="/user/profil">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
