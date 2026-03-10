@@ -42,6 +42,21 @@ const data = {
     },
 
   ],
+  navMain1: [
+    {
+      title: "Dashboard",
+      url: "/user/profil",
+      icon: IconDashboard,
+      active: true,
+    },
+    {
+      title: "Mes Incidents",
+      url: "/incident",
+      icon: IconFolder,
+      active: false,
+    },
+
+  ],
   navSecondary: [
     {
       title: "Settings",
@@ -75,7 +90,7 @@ export function TechnicienSidebar({user}: Props) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={user.role_id == 1 ? data.navMain1 : data.navMain} />
         {/* <NavDocuments items={data.documents} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>

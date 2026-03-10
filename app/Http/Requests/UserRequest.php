@@ -22,7 +22,6 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => ['required', 'min:5'],
             'email' => ['required', 'email'],
             'password' => ['required', 'min:4']
         ];

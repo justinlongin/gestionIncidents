@@ -3,11 +3,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Auth } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import { Lock, Mail, User } from 'lucide-react';
+import { Lock, Mail } from 'lucide-react';
 
 export default function Login({ user }: Auth) {
     const { data, setData, post, processing, errors } = useForm({
-        matricule: '',
         email: '',
         password: '',
     });
@@ -45,23 +44,6 @@ export default function Login({ user }: Auth) {
                     </div>
 
                     <form onSubmit={handleSubmit} className="grid gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="matricule">Matricule</Label>
-                            <div className="relative">
-                                <User className="absolute top-2.5 left-2.5 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                    id="matricule"
-                                    type="text"
-                                    placeholder="M12345"
-                                    required
-                                    className="pl-9"
-                                    value={data.matricule}
-                                    onChange={(e) => setData('matricule', e.target.value)}
-                                />
-                            </div>
-                            {errors.matricule && <div className="text-sm text-red-500">{errors.matricule}</div>}
-                        </div>
-
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
                             <div className="relative">

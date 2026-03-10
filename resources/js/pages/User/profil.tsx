@@ -242,10 +242,10 @@ export default function Profil({ user }: Props) {
                     </span>
                   </div>
                 </div>
-                <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-500">
-                  <span className="flex items-center gap-1"><IconMail className="h-3.5 w-3.5" />{user?.email ?? "technicien@acme.com"}</span>
-                  <span className="flex items-center gap-1"><IconMapPin className="h-3.5 w-3.5" />Yaoundé, CM</span>
-                  <span className="flex items-center gap-1"><IconCalendar className="h-3.5 w-3.5" />Membre depuis Jan 2023</span>
+                <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate-700">
+                  <span className="flex items-center gap-2 font-medium"><IconMail className="h-4 w-4 text-slate-500" />{user?.email ?? "technicien@acme.com"}</span>
+                  <span className="flex items-center gap-2 font-medium"><IconMapPin className="h-4 w-4 text-slate-500" />Yaoundé, CM</span>
+                  <span className="flex items-center gap-2 font-medium"><IconCalendar className="h-4 w-4 text-slate-500" />Membre depuis Jan 2023</span>
                 </div>
               </div>
 
@@ -513,15 +513,17 @@ export default function Profil({ user }: Props) {
                       { label: "Téléphone", value: "+237 6XX XXX XXX", icon: IconPhone },
                       { label: "Localisation", value: "Yaoundé, Cameroun", icon: IconMapPin },
                     ].map((field) => (
-                      <div key={field.label} className="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3">
-                        <div className="flex items-center gap-3">
-                          <field.icon className="h-4 w-4 text-slate-400" />
+                      <div key={field.label} className="flex items-center justify-between rounded-xl bg-slate-100 border border-slate-200 px-5 py-4">
+                        <div className="flex items-center gap-4">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white border border-slate-200">
+                            <field.icon className="h-5 w-5 text-slate-600" />
+                          </div>
                           <div>
-                            <p className="text-[11px] text-slate-400 uppercase tracking-wider font-medium">{field.label}</p>
-                            <p className="text-sm font-medium text-slate-800">{field.value}</p>
+                            <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-0.5">{field.label}</p>
+                            <p className="text-base font-semibold text-slate-900">{field.value}</p>
                           </div>
                         </div>
-                        <button className="text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors">Modifier</button>
+                        <button className="text-sm text-blue-600 hover:text-blue-800 font-semibold transition-colors">Modifier</button>
                       </div>
                     ))}
                   </div>
