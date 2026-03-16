@@ -1,5 +1,5 @@
-#!/bin/bash
-# set -e  Arrête le script en cas d'erreur
+!/bin/bash
+set -e  Arrête le script en cas d'erreur
 
 # Exécute les migrations (force pour production, sans confirmation)
 php artisan migrate:fresh --force

@@ -43,7 +43,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'matricule' => '22DC2R',
             'name' => 'John Doe',
             'email' => 'john@doe.com',
             'telephone' => '8397278',
@@ -54,7 +53,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'matricule' => '22TC6G',
             'name' => 'Fabien Bone',
             'email' => 'fabien@bone.com',
             'telephone' => '83972789',
@@ -65,7 +63,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'matricule' => '55AD2R',
             'name' => 'Romain Franck',
             'email' => 'romain@franck.com',
             'telephone' => '8546771',
