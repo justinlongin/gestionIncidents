@@ -65,11 +65,7 @@ export default function Dashboard({ incidents, users, user }: Props) {
     .slice(0, 5)
 
   // Incidents urgents
-  const urgentIncidents = incidents
-
-    .filter(i => i.priorite.nom === 'elevée' && i.statut !== 'Terminé')
-
-    .slice(0, 3)
+  const urgentIncidents = incidents.filter(i => i.priorite.nom === 'elevée' && i.statut !== 'Terminé').slice(0, 3)
 
   return (
     <SidebarProvider
