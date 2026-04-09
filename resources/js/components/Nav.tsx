@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useForm } from '@inertiajs/react'
+import { Link, useForm, usePage } from '@inertiajs/react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
     Menu, X, Bell, LogOut, User as UserIcon,
     ShieldAlert, AlertTriangle, ChevronDown
 } from 'lucide-react'
+
+import { NotificationDropdown } from '@/pages/User/notification'
 import { User } from '@/types'
 
 type Props = {
@@ -23,6 +25,7 @@ export default function Nav({ user = null, mode = 'auto' }: Props) {
     const [scrolled, setScrolled] = useState(false)
     const { post, processing } = useForm()
 
+    const { notifications } = usePage().props;
     // Détermine le mode effectif
     const effectiveMode = mode === 'auto' ? (user ? 'app' : 'landing') : mode
 
@@ -135,6 +138,8 @@ export default function Nav({ user = null, mode = 'auto' }: Props) {
                                             3
                                         </Badge>
                                     </Button>
+
+                                    <NotificationDropdown notifications={notifications} />
                                 </>
                             )}
 

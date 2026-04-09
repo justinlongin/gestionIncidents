@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => 2
         ]);
 
-        User::factory()->create([
+        User::factory()->create([ 
             'name' => 'Romain Franck',
             'email' => 'romain@franck.com',
             'telephone' => '8546771',

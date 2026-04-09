@@ -45,8 +45,23 @@ export interface User {
 }
 
 
-
-
+export interface Data {
+    incident_id: number;
+    incident_titre: string;
+    incident_priority: Priorite;
+    created_by: string;
+    message: string;
+}
+export interface Notification{
+    id: number
+    type: string
+    notifiable_type: string
+    notifiable_id: number
+    data: Data
+    read_at: string
+    created_at: string
+    updated_at: string
+}
 
 export interface Incident {
     [key: string]: unknown; // This allows for additional properties..

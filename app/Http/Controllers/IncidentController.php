@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Inertia\Inertia;
+use App\Http\Requests\IncidentRequest;
+use App\Models\Categorie;
 use App\Models\Incident;
 use App\Models\Priorite;
-use App\Models\Categorie;
-use Illuminate\Support\Str;
+use App\Models\User;
+use App\Notifications\NewIncidentNotification;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Cache\Store;
-use App\Http\Requests\IncidentRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class IncidentController extends Controller
 {
@@ -95,7 +96,14 @@ class IncidentController extends Controller
 
         $data['user_id'] = Auth::user()->id;
 
-        $incident->create($data);
+        $incident = $incident->create($data);
+
+        $techniciens = User::where('role_id', '2')->get();
+
+        // Envoyer la notification à tous les techniciens
+        foreach ($techniciens as $technicien) {
+            $technicien->notify(new NewIncidentNotification($incident));
+        }
 
         return redirect(route('incident.index'))->with('success','Incident enregistrer avec success');
     }

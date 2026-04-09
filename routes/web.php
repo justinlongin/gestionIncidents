@@ -1,14 +1,15 @@
 <?php
 
-use Inertia\Inertia;
-use App\Models\Incident;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
+use App\Models\Incident;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
@@ -57,3 +58,6 @@ Route::get('/user/profil/edit', [UserController::class, 'edit'])->middleware('au
 Route::get('/user/profil/edit/password', [UserController::class, 'editPassword'])->middleware('auth')->name('user.editPassword');
 Route::put('/user/profil/edit/password', [UserController::class, 'updatePassword'])->middleware('auth');
 Route::put('/user/profil/edit', [UserController::class, 'update'])->middleware('auth');
+
+Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])
+->name('notifications.read');
